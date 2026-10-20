@@ -170,6 +170,15 @@ Unknown short codes return `404 Not Found`. Invalid request values return `400 B
 ./mvnw test
 ```
 
+The test suite includes:
+
+- Mockito unit tests for URL creation, short-code collision retries, redirects and click-count updates, statistics, pagination, sorting, and repository failures.
+- MockMvc tests for endpoint responses, request validation, malformed JSON, not-found handling, and pagination parameter boundaries.
+- JPA repository tests for short-code lookup, existence checks, and the unique short-code constraint.
+- An application context-load test.
+
+The repository and application context tests use the configured PostgreSQL datasource, so PostgreSQL must be running and accessible with the connection settings in `src/main/resources/application.properties`.
+
 ## Current limitations
 
 - The API currently constructs the `shortUrl` response using `http://localhost:8080/{shortCode}`, but the redirect controller is mapped to `/api/v1/urls/{shortCode}`. Therefore, the returned `shortUrl` does not currently match the implemented redirect route.
